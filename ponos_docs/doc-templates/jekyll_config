@@ -1,0 +1,35 @@
+# ----
+# Site
+
+title: Ponos
+description: Ponos API documentation.
+url: https://example.com
+google_analytics_key:
+permalink: pretty
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - readme.md
+  - LICENCE
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+
+types:
+  - get
+  - put
+  - delete
+  - post
+
+collections:
+  introduction:
+    title: Documentation
+    position: 1
+    name: Documentation

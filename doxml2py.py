@@ -49,9 +49,11 @@ class Compound:
         try:
             self.fullName = c.find('compoundname').text
             self.name = self.fullName.split('::')[-1]
+            self.namespace = self.fullName.split('::')[0]
         except:
             self.fullName = ""
             self.name = ""
+            self.namespace = ""
         self.kind = c.get('kind')
         self.id = c.get('id')
         self.briefdescription = ""
@@ -152,6 +154,7 @@ class File(Compound):
 class ConvertedData:
     def __init__(self):
         self.classes = []
+        self.namespaces = []
 
 
 def cleanName(n):
@@ -181,9 +184,9 @@ def doxml2py(xml_file, data):
         for f in list(filter(lambda child: child.get('kind') == 'file', root))
     ]
     files = sorted(files, key=lambda x: x.name)
-    namespaces = [
+    data.namespaces = [
         Namespace(n, data.classes)
         for n in list(
             filter(lambda child: child.get('kind') == 'namespace', root))
     ]
-    namespaces = sorted(namespaces, key=lambda x: x.name)
+    data.namespaces = sorted(data.namespaces, key=lambda x: x.name)
